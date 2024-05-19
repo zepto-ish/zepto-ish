@@ -43,7 +43,7 @@ typedef uint64_t  VD;
 
 /* Pointer types */
 typedef void* VP;
-typedef void* FP;
+typedef void (*FP)();
 
 /* For the given processor */
 typedef          int   INT; // [SP] 16 or more bits
