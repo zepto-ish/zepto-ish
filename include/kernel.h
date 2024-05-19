@@ -22,6 +22,7 @@
 #define TMIN_TPRI  1
 #define TMAX_TPRI 64
 
+#define TTS_NXX  0x00 // NON-EXISTENT state [zepto]
 #define TTS_RUN  0x01 // RUNNING state
 #define TTS_RDY  0x02 // READY state
 #define TTS_WAI  0x04 // WAITING state
