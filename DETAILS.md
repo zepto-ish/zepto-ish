@@ -1,6 +1,15 @@
 Implementation Details
 ======================
 
+## Specification
+
+The µITRON 4.0 Specification can be found on the TRON Forum website.
+
+ - https://www.tron.org/specifications/
+
+Search for `µITRON 4.0 Specification` to find the link.
+
+
 ## Conformance
 
 > ```
