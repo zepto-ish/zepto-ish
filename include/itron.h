@@ -75,7 +75,8 @@ typedef  UINT  ER_UINT;
  ***************************/
 
 /* General constants */
-/* #define  NULL  0 */
+#undef NULL
+#define  NULL  0
 #define  TRUE  1
 #define FALSE  0
 #define  E_OK  0
