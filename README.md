@@ -27,6 +27,17 @@ All of this implemented as userspace Linux application.
 > See the [Implementation Details](DETAILS.md) for more details.
 
 
+## What does it do?
+
+For now, not much.
+
+If you run the current demo program (without reading its source), you will see it appears to hang after a few iteration.
+It is not hanging, it has no tasks to run anymore (and no external way to launch tasks).
+
+Don't worry too much.
+What is important here is it implements the specification.
+
+
 ## Interrupts? In my userspace???
 
 (TBD)
