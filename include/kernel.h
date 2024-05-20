@@ -62,6 +62,14 @@ void ext_tsk();
  *   INTERRUPTS   *
  ******************/
 
+enum INTNO_LIST {
+	INTNO_USR1 = 1,
+	INTNO_USR2 = 2,
+	INTNO_ALRM = 3,
+	INTNO_INT  = 4,
+	INTNO_TERM = 5,
+};
+
 /**
  * Interrupt handler number
  */
@@ -70,7 +78,7 @@ typedef UINT  INHNO;
 /**
  * Interrupt number
  */
-typedef UINT  INTNO;
+typedef enum INTNO_LIST INTNO;
 
 typedef struct t_dinh {
 	/** No inhatr attributes supported. */

@@ -19,7 +19,9 @@ Not all signals are available, or make sense to use.
 
 As usual, `SIGKILL` and `SIGSTOP` cannot be intercepted or handled.
 
-The usual signal names should be used, as their numbers are not necessarily portable.
+The usual signal names should NOT be used, as their numbers are not necessarily portable.
+
+Instead, use the `INTNO_*` equivalent.
 
 
 Other interrupts
