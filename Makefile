@@ -21,5 +21,11 @@ clean:
 	@rm -vf *.o */*.o
 	@rm -vf main
 
+"$(PREFIX)/bin":
+	mkdir -vp "$@"
+
+install: main "$(PREFIX)/bin"
+	cp -vt "$(PREFIX)/bin" main
+
 main: src/main.o src/kernel.o
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
