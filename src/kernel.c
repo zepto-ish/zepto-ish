@@ -158,7 +158,8 @@ ER act_tsk(ID tskid) {
 		return E_NOEXS;
 	}
 	z_tasks[tskid].state = TTS_RDY;
-	return E_NOIMPL;
+
+	return E_OK;
 }
 
 /**
