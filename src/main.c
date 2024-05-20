@@ -18,7 +18,7 @@
 
 void task(VP_INT exinf) {
 	/* Body of the task */
-	DBG("Hello, World!");
+	vconsole_stdoutf("Hello, World!\n");
 	ext_tsk();
 	PANIC("End of sample task reached...", E_SYS);
 }
@@ -28,6 +28,7 @@ void other_task(VP_INT exinf) {
 	INT i = 0;
 	i++;
 	s_i++;
+	vconsole_stdoutf("Other task?\n");
 	DBG("This should stay at 1: %08d", i);
 	DBG("This should increment: %08d", s_i);
 	if (i != 1) {
