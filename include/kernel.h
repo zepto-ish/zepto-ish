@@ -30,6 +30,12 @@
 #define TTS_WAS  0x0c // WAITING-SUSPENDED state
 #define TTS_DMT  0x10 // DORMANT state
 
+#define TA_HLNG  0x00 // Start a processing unit through a high-level language interface
+#define  TA_ASM  0x01 // Start a processing unit through an assembly language interface
+
+#define  TA_ACT  0x02 // Task is activated after the creation
+#define TA_RSTR  0x04 // Restricted task
+
 typedef struct t_ctsk {
 	ATR     tskatr;  /* Task attribute */
 	VP_INT  exinf;   /* Task extended information */
@@ -73,7 +79,7 @@ void ext_tsk();
  * The kernel maker can assign values to prid.
  * A particular kernel implementation should be uniquely identified by the combination of maker and prid codes.
  */
-#define TKERNEL_PRID  0x0420 // Meaningless for individuals...
+#define TKERNEL_PRID  0x0000 // Meaningless for individuals...
 #define TKERNEL_PRVER 0x0001 // First version of zepto-ish!
 
 /***********
@@ -87,14 +93,26 @@ void zepto_run();
  *   Additional stuff   *
  ************************/
 
-#include <stdio.h>
+#if defined(WITH_TRACE)
+#  if !defined(WITH_DBG)
+#    define WITH_DBG
+#  endif
+#endif
+
 #include <stdlib.h>
+#include <stdio.h>
 
 #if defined(WITH_TRACE)
 #define TRACE(fmt, ...) fprintf(stderr, "%s@%d(%s) [zepto] " fmt "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__);
 #else
 #define TRACE(fmt, ...) {}
 #endif
-#define   DBG(fmt, ...) fprintf(stderr, "%s@%d(%s) [zepto] " fmt "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__);
 
+#if defined(WITH_DBG)
+#define   DBG(fmt, ...) fprintf(stderr, "%s@%d(%s) [zepto] " fmt "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__);
+#else
+#define   DBG(fmt, ...) {}
+#endif
+
+#define PANIC(msg, err) { fprintf(stderr, "\n!!\n!! ERROR (%d): %s\n!!\n", err, msg); exit(-1); }
 #define PANIC(msg, err) { fprintf(stderr, "\n!!\n!! ERROR (%d): %s\n!!\n", err, msg); exit(-1); }
