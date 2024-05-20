@@ -8,7 +8,6 @@
 #   ║      \/    \/|_|                         \/    \/  ║
 #   ╚════════════════════════════════════════════════════╝
 
-CFLAGS += -DWITH_TRACE
 CFLAGS += -DWITH_DBG
 CFLAGS += -Wall
 CFLAGS += -Werror
