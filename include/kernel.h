@@ -110,6 +110,15 @@ ER def_inh (INHNO inhno, T_DINH *pk_dinh);
 #define TKERNEL_PRID  0x0000 // Meaningless for individuals...
 #define TKERNEL_PRVER 0x0001 // First version of zepto-ish!
 
+/***************************
+ *   Vendor System Calls   *
+ ***************************/
+
+void vconsole_stdoutf(char* fmt, ...);
+void vconsole_stderrf(char* fmt, ...);
+void vprocess_exit(UB code);
+
+
 /*********************************
  *   zepto-specific interfaces   *
  *********************************/
@@ -127,22 +136,19 @@ void zepto_run();
 #  endif
 #endif
 
-#include <stdlib.h>
-#include <stdio.h>
-
 #if defined(WITH_TRACE)
-#define TRACE(fmt, ...) fprintf(stderr, "%s@%d(%s) [zepto] " fmt "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__);
+#define TRACE(fmt, ...) vconsole_stderrf("%s@%d(%s) [zepto] " fmt "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__);
 #else
 #define TRACE(fmt, ...) {}
 #endif
 
 #if defined(WITH_DBG)
-#define   DBG(fmt, ...) fprintf(stderr, "%s@%d(%s) [zepto] " fmt "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__);
+#define   DBG(fmt, ...) vconsole_stderrf("%s@%d(%s) [zepto] " fmt "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__);
 #else
 #define   DBG(fmt, ...) {}
 #endif
 
-#define PANIC(msg, err) { fprintf(stderr, "\n!!\n!! ERROR (%d): %s\n!!\n", err, msg); exit(-1); }
-#define PANIC(msg, err) { fprintf(stderr, "\n!!\n!! ERROR (%d): %s\n!!\n", err, msg); exit(-1); }
+#define PANIC(msg, err) { vconsole_stderrf("\n!!\n!! ERROR (%d): %s\n!!\n", err, msg); vprocess_exit(255); }
+#define PANIC(msg, err) { vconsole_stderrf("\n!!\n!! ERROR (%d): %s\n!!\n", err, msg); vprocess_exit(255); }
 
 #endif

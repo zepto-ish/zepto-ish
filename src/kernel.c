@@ -17,6 +17,9 @@
 
 // System headers used internally by the kernel
 #include <signal.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <ucontext.h>
 
 /*************
@@ -236,6 +239,27 @@ ER def_inh (INHNO inhno, T_DINH *pk_dinh) {
 	return E_OK;
 }
 
+/***************************
+ *   Vendor System Calls   *
+ ***************************/
+
+void vconsole_stdoutf(char* fmt, ...) {
+	va_list argp;
+	va_start(argp, fmt);
+	vfprintf(stdout, fmt, argp);
+	va_end(argp);
+}
+
+void vconsole_stderrf(char* fmt, ...) {
+	va_list argp;
+	va_start(argp, fmt);
+	vfprintf(stderr, fmt, argp);
+	va_end(argp);
+}
+
+void vprocess_exit(UB code) {
+	exit(code);
+}
 
 /*********************************
  *   zepto-specific interfaces   *
