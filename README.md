@@ -24,7 +24,7 @@ It implements only the minimum required functionality.
 
 All of this implemented as userspace Linux application.
 
-> See the [Implementation Details](DETAILS.md) for mode details.
+> See the [Implementation Details](DETAILS.md) for more details.
 
 
 ## Interrupts? In my userspace???
