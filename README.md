@@ -40,14 +40,9 @@ What is important here is it implements the specification.
 
 ## Interrupts? In my userspace???
 
-(TBD)
+Since this is all for demonstration purposes only, an "interrupt model" in userspace has been defined.
 
-Since this is all for demonstration purposes only, we'll define an "interrupt model" for some things.
-
-Example interrupts:
-
- - `getc` input
- - `alarm` also?
+> See [INTERRUPTS.md](INTERRUPTS.md) for details
 
 
 ## Why?

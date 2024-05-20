@@ -34,10 +34,10 @@ Conformance:
  - Task states RUNNING, READY and DORMANT
  - A method to activate tasks (`TA_ACT`, `act_tsk`, `iact_tsk`)
  - A method for tasks to terminate (`ext_tsk` and `return` from main routine)
+ - Interrupt handlers (see [INTERRUPTS.md](INTERRUPTS.md))
 
 Current caveats:
 
- - No interrupt handlers yet
  - Scheduling incomplete
    - Limited to a single priority level (valid)
    - No queue for task scheduling (invalid)

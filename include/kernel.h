@@ -58,6 +58,34 @@ ER iact_tsk(ID tskid);
 void ext_tsk();
 
 
+/******************
+ *   INTERRUPTS   *
+ ******************/
+
+/**
+ * Interrupt handler number
+ */
+typedef UINT  INHNO;
+
+/**
+ * Interrupt number
+ */
+typedef UINT  INTNO;
+
+typedef struct t_dinh {
+	/** No inhatr attributes supported. */
+	ATR  inhatr; /* Interrupt handler attribute */
+	FP   inthdr; /* Interrupt handler start address */
+	/* Other implementation specific fields may be added. */
+} T_DINH;
+
+// Cannot use SIGRTMAX since it is a variable...
+#define Z_INH_SIGNAL_MAX 64
+#define Z_INH_MAX Z_INH_SIGNAL_MAX
+
+#define TFN_DEF_INH  -0x65
+ER def_inh (INHNO inhno, T_DINH *pk_dinh);
+
 /**********************
  *   IDENTIFICATION   *
  **********************/

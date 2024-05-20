@@ -16,6 +16,7 @@
 #include <kernel.h>
 
 // System headers used internally by the kernel
+#include <signal.h>
 #include <ucontext.h>
 
 /*************
@@ -179,6 +180,41 @@ void ext_tsk() {
 
 	// Return back to call site
 	setcontext(&z_return_context);
+}
+
+/******************
+ *   INTERRUPTS   *
+ ******************/
+
+static T_DINH* handlers[Z_INH_MAX];
+
+static void z_inh_signal_handler(int signal) {
+	if (handlers[signal]) {
+		handlers[signal]->inthdr();
+	}
+}
+
+ER def_inh (INHNO inhno, T_DINH *pk_dinh) {
+	TRACE("Defining interrupt handler #%d", inhno);
+
+	// No interrupt handler attributes
+	if (pk_dinh->inhatr != 0) {
+		return E_RSATR;
+	}
+
+	// Only signals implemented for now
+	if (inhno >= Z_INH_MAX) {
+		return E_PAR;
+	}
+
+	if (inhno < Z_INH_SIGNAL_MAX) {
+		TRACE("Installing signal handler...");
+		signal(inhno, z_inh_signal_handler);
+	}
+
+	handlers[inhno] = pk_dinh;
+
+	return E_OK;
 }
 
 
