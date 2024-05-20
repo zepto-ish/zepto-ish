@@ -19,7 +19,6 @@
 void task(VP_INT exinf) {
 	/* Body of the task */
 	DBG("Hello, World!");
-	act_tsk(2);
 	ext_tsk();
 	PANIC("End of sample task reached...", E_SYS);
 }
@@ -39,8 +38,26 @@ void other_task(VP_INT exinf) {
 	}
 }
 
+void usr1_handler() {
+	DBG("SIGUSR1 handler...");
+	iact_tsk(1);
+}
+
+void usr2_handler() {
+	DBG("SIGUSR2 handler...");
+	iact_tsk(2);
+}
+
+void int_handler() {
+	DBG("INT handler...");
+	iact_tsk(1);
+}
+
 static T_CTSK task_info = {0};
 static T_CTSK other_info = {0};
+static T_DINH usr1_handler_info;
+static T_DINH usr2_handler_info;
+static T_DINH int_handler_info;
 
 int main(int argc, char** argv) {
 	ER_ID ret;
@@ -54,6 +71,7 @@ int main(int argc, char** argv) {
 	DBG("... creating task");
 	task_info.task = (FP)task;
 	task_info.exinf = NULL;
+	task_info.tskatr |= TA_ACT; // Start active
 
 	ret = cre_tsk(1, &task_info);
 	if (ret < 0) {
@@ -63,11 +81,31 @@ int main(int argc, char** argv) {
 	DBG("... creating other_task");
 	other_info.task = (FP)other_task;
 	other_info.exinf = NULL;
-	other_info.tskatr |= TA_ACT; // Start active
 
 	ret = cre_tsk(2, &other_info);
 	if (ret < 0) {
 		PANIC("Could not create other_task...", ret);
+	}
+
+	DBG("... defining USR1 handler");
+	usr1_handler_info.inthdr = usr1_handler;
+	ret = def_inh(INTNO_USR1, &usr1_handler_info);
+	if (ret < 0) {
+		PANIC("Could not define USR1 handler...", ret);
+	}
+
+	DBG("... defining USR2 handler");
+	usr2_handler_info.inthdr = usr2_handler;
+	ret = def_inh(INTNO_USR2, &usr2_handler_info);
+	if (ret < 0) {
+		PANIC("Could not define USR2 handler...", ret);
+	}
+
+	DBG("... defining INT handler");
+	int_handler_info.inthdr = int_handler;
+	ret = def_inh(INTNO_INT, &int_handler_info);
+	if (ret < 0) {
+		PANIC("Could not define INT handler...", ret);
 	}
 
 	// Launch
