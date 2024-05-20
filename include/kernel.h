@@ -46,12 +46,8 @@ typedef struct t_ctsk {
 	/* Other implementation specific fields may be added. */
 } T_CTSK;
 
-// Static API (??)
-// CRE_TSK ( ID tskid, { ATR tskatr, VP_INT exinf, FP task, PRI itskpri, SIZE stksz, VP stk } );
 #define TFN_CRE_TSK -0x05
 ER cre_tsk (ID tskid, T_CTSK *pk_ctsk);
-//#define TFN_ACRE_TSK -0xc1
-//ER_ID acre_tsk(T_CTSK *pk_ctsk);
 
 #define TFN_ACT_TSK -0x07
 ER act_tsk(ID tskid);
