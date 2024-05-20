@@ -59,7 +59,7 @@ Why what?
 
 Because running this on real hardware would be cumbersome, especially at first!
 
-In addition, I think designing it this way has value, as you could simulate real
+In addition, I think designing it this way has value, as you could simulate applications on the host system, and hopefully run it later on embedded.
 
 
 ### Why do this?
