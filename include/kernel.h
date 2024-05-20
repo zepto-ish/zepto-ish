@@ -69,7 +69,7 @@ void ext_tsk();
 
 
 #define TKERNEL_MAKER 0x0008 // Individuals (or personal businsses)
-#define TKERNEL_SPVER 0x5_4_02 // µTRON 4.02
+#define TKERNEL_SPVER 0x5_4_02 // µITRON 4.02
 /**
  * `prid` is the number for identifying the kernel.
  * The kernel maker can assign values to prid.
