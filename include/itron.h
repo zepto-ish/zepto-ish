@@ -9,6 +9,8 @@
  *  ╚════════════════════════════════════════════════════╝
  */
 
+#ifndef _ITRON_H_
+
 /**
  * Data types for µITRON 4.0 and our minimal API
  */
@@ -130,3 +132,5 @@ typedef  UINT  ER_UINT;
  ************************/
 
 // #define INCLUDE(x) #error INCLUDE not supported
+
+#endif

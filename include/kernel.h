@@ -9,6 +9,8 @@
  *  ╚════════════════════════════════════════════════════╝
  */
 
+#ifndef _KERNEL_H_
+
 /**
  * Supported API from µITRON 4.0
  */
@@ -142,3 +144,5 @@ void zepto_run();
 
 #define PANIC(msg, err) { fprintf(stderr, "\n!!\n!! ERROR (%d): %s\n!!\n", err, msg); exit(-1); }
 #define PANIC(msg, err) { fprintf(stderr, "\n!!\n!! ERROR (%d): %s\n!!\n", err, msg); exit(-1); }
+
+#endif
