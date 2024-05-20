@@ -116,9 +116,9 @@ typedef  UINT  ER_UINT;
 /* (J) Implementation-Specific Error Codes (from –97 to –128) */
 
 /**
- * E_NOIMPL  a function or feature has not been implemented yet.
+ * EV_NOIMPL  a function or feature has not been implemented yet.
  */
-#define E_NOIMPL  -128
+#define EV_NOIMPL  -128
 
 /* Object Attributes */
 #define  TA_NULL  0
