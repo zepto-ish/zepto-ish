@@ -31,11 +31,11 @@ All of this implemented as userspace Linux application.
 
 For now, not much.
 
-If you run the current demo program (without reading its source), you will see it appears to hang after a few iteration.
-It is not hanging, it has no tasks to run anymore (and no external way to launch tasks).
+If you run the current demo program (without reading its source), you will see it appears to hang after an hello world.
+It is not hanging, it has no tasks to run anymore.
+You can send `SIGINT` or `SIGUSR1` to start `Task#1`, and `SIGUSR2` to start `Task#2`.
 
-Don't worry too much.
-What is important here is it implements the specification.
+This is only a silly demo, though, so don't expect too much.
 
 
 ## Interrupts? In my userspace???
