@@ -181,9 +181,10 @@ void ext_tsk() {
 	setcontext(&z_return_context);
 }
 
-/***********
- *   WIP   *
- ***********/
+
+/*********************************
+ *   zepto-specific interfaces   *
+ *********************************/
 
 static BOOL zepto_init_done = false;
 

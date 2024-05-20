@@ -58,15 +58,9 @@ ER iact_tsk(ID tskid);
 void ext_tsk();
 
 
-/***********
- *   WIP   *
- ***********/
-
-// XXX correctly file
-
-#define TMIN_MPRI  1
-#define TMAX_MPRI 64
-
+/**********************
+ *   IDENTIFICATION   *
+ **********************/
 
 #define TKERNEL_MAKER 0x0008 // Individuals (or personal businsses)
 #define TKERNEL_SPVER 0x5_4_02 // µITRON 4.02
@@ -78,9 +72,9 @@ void ext_tsk();
 #define TKERNEL_PRID  0x0000 // Meaningless for individuals...
 #define TKERNEL_PRVER 0x0001 // First version of zepto-ish!
 
-/***********
- *   WIP   *
- ***********/
+/*********************************
+ *   zepto-specific interfaces   *
+ *********************************/
 
 void zepto_init();
 void zepto_run();
