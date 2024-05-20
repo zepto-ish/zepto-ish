@@ -9,9 +9,16 @@
 #   ╚════════════════════════════════════════════════════╝
 
 CFLAGS += -DWITH_DBG
-CFLAGS += -Wall
+CFLAGS += -Wall -Wextra -Wpedantic
 CFLAGS += -Werror
+CFLAGS += -Wswitch
+CFLAGS += -Wswitch-enum
+CFLAGS += -Wenum-compare
+CFLAGS += -Wenum-conversion
 CFLAGS += -Iinclude
+
+# Annoying :(
+CFLAGS += -Wno-unused-parameter
 
 .PHONY: clean all
 
