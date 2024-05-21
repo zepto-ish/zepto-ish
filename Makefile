@@ -22,12 +22,13 @@ CFLAGS += -Wno-unused-parameter
 
 .PHONY: clean all
 
-all: zepto/zepto.a
+all: zepto/zepto.a demo/demo
 
 clean:
 	@rm -vf ${ZEPTO_OBJS}
 	@rm -vf zepto/zepto.so zepto/zepto.a
 	@rm -vf main
+	@rm -vf demo/demo
 
 "$(PREFIX)/bin":
 	mkdir -vp "$@"
@@ -45,5 +46,9 @@ install: main "$(PREFIX)/bin"
 zepto/zepto.a: ${ZEPTO_OBJS}
 	$(AR) vrcs $@ $^
 
-main: src/main.o zepto.a
+DEMO_SRCS += $(wildcard demo/*.c)
+
+DEMO_OBJS := ${DEMO_SRCS:c=o}
+
+demo/demo: ${DEMO_OBJS} zepto/zepto.a
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)

@@ -60,10 +60,8 @@ static T_DINH usr1_handler_info;
 static T_DINH usr2_handler_info;
 static T_DINH int_handler_info;
 
-int main(int argc, char** argv) {
+ER static_setup() {
 	ER_ID ret;
-
-	zepto_init();
 
 	// This would be in the application-specific initialization normally...
 	// For now, implemented as `main`...
@@ -109,9 +107,5 @@ int main(int argc, char** argv) {
 		PANIC("Could not define INT handler...", ret);
 	}
 
-	// Launch
-	zepto_run();
-
-	// This should not happen
-	PANIC("End of main() reached!", E_SYS);
+	return E_OK;
 }
