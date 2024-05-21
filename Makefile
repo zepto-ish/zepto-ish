@@ -22,14 +22,18 @@ CFLAGS += -Wno-unused-parameter
 
 .PHONY: clean all
 
-all: zepto/zepto.a demo/demo
+TARGET_LIBS += zepto/zepto.a
+TARGET_LIBS += zepto/zepto.so
+TARGET_BINS += demo/demo
+
+TARGETS = ${TARGET_BINS} ${TARGET_LIBS}
+
+all: $(TARGETS)
 
 clean:
 	@rm -vf ${ZEPTO_OBJS}
 	@rm -vf ${DEMO_OBJS}
-	@rm -vf zepto/zepto.so zepto/zepto.a
-	@rm -vf main
-	@rm -vf demo/demo
+	@rm -vf ${TARGETS}
 
 "$(PREFIX)/bin":
 	mkdir -vp "$@"
@@ -37,22 +41,21 @@ clean:
 "$(PREFIX)/lib":
 	mkdir -vp "$@"
 
-ZEPTO_SRCS += $(wildcard zepto/*.c)
 
+install: "$(PREFIX)/bin" "$(PREFIX)/lib" ${TARGET_BINS} ${TARGET_LIBS}
+	cp -vt "$(PREFIX)/bin" ${TARGET_BINS}
+	cp -vt "$(PREFIX)/lib" ${TARGET_LIBS}
+
+ZEPTO_SRCS += $(wildcard zepto/*.c)
 ZEPTO_OBJS := ${ZEPTO_SRCS:c=o}
 
-install: "$(PREFIX)/bin" "$(PREFIX)/lib" demo/demo zepto/zepto.a
-	cp -vt "$(PREFIX)/bin" demo/demo
-	cp -vt "$(PREFIX)/lib" zepto/zepto.a
-
-# zepto.so: ${ZEPTO_OBJS}
-# 	$(CC) -shared -o $@ $^ $(CFLAGS) $(LDFLAGS)
+zepto/zepto.so: ${ZEPTO_OBJS}
+	$(CC) -shared -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 zepto/zepto.a: ${ZEPTO_OBJS}
 	$(AR) vrcs $@ $^
 
 DEMO_SRCS += $(wildcard demo/*.c)
-
 DEMO_OBJS := ${DEMO_SRCS:c=o}
 
 demo/demo: ${DEMO_OBJS} zepto/zepto.a
