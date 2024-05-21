@@ -178,6 +178,59 @@ void ext_tsk() {
 	setcontext(&z_return_context);
 }
 
+/**
+ * Put Task to Sleep
+ *
+ * (See the µITRON 4.02 specification)
+ */
+ER slp_tsk() {
+	TRACE("Putting task #%d to sleep", z_current_task->id);
+	// Don't clobber suspended state
+	z_current_task->state &= TTS_SUS;
+	// Set task as waiting
+	z_current_task->state |= TTS_WAI;
+
+	swapcontext(&z_current_task->task_context, &z_return_context);
+
+	// TODO: detect `rel_wai` and return E_RLWAI
+	return E_OK;
+}
+
+/**
+ * Wake up Task
+ *
+ * (See the µITRON 4.02 specification)
+ */
+ER wup_tsk(ID tskid) {
+	if (tskid == 0) {
+		tskid = z_current_task->id;
+	}
+	TRACE("Waking-up task #%d from sleep", tskid);
+	if (z_tasks[tskid].state == TTS_NXX) {
+		return E_NOEXS;
+	}
+
+	// FIXME: this should queue a wake-up request instead.
+	// Don't clobber suspended state
+	z_tasks[tskid].state &= ~TTS_WAI;
+	z_tasks[tskid].state |= TTS_RDY;
+
+	return E_OK;
+}
+
+/**
+ * Wake up Task
+ *
+ * (See the µITRON 4.02 specification)
+ */
+ER iwup_tsk(ID tskid) {
+	if (tskid == 0) {
+		return E_ID;
+	}
+	return wup_tsk(tskid);
+}
+
+
 void _kernel_initialize_tasks() {
 	TRACE("Setting-up context for `ext_tsk`");
 	getcontext(&z_ext_tsk_context);

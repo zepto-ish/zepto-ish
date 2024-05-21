@@ -60,6 +60,15 @@ ER iact_tsk(ID tskid);
 void ext_tsk();
 
 
+#define TFN_SLP_TSK –0x11
+ER slp_tsk();
+
+#define TFN_WUP_TSK –0x13
+ER wup_tsk(ID tskid);
+#define TFN_IWUP_TSK –0x72
+ER iwup_tsk(ID tskid);
+
+
 /******************
  *   INTERRUPTS   *
  ******************/
