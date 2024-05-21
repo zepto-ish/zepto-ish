@@ -63,11 +63,15 @@ void zepto_run() {
 extern ER static_setup();
 
 int main(int argc, char** argv) {
+	ER ret;
 	// Do some initial housekeeping
 	zepto_init();
 
 	// TODO: figure out a more re-usable scheme
-	static_setup();
+	ret = static_setup(argc, argv);
+	if (ret != E_OK) {
+		PANIC("`static_setup` failed.", ret);
+	}
 
 	// Launch the main loop
 	zepto_run();
