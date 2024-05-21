@@ -38,10 +38,15 @@ Conformance:
 
 Current caveats:
 
+ - The *System Initialization Procedure* isn't followed
+   - The ownership of `main` is currently given to the "application".
  - Scheduling incomplete
    - Limited to a single priority level (valid)
    - No queue for task scheduling (invalid)
    - As such, the task id works as task priority would (invalid!)
+ - Incomplete contexts support
+   - The contexts are not tracked in a way where service calls for non-task contexts called in task contexts will fail.
+   - Broadly speaking, one context per task, plus the "main" context.
 
 Other notes not affecting conformance:
 
