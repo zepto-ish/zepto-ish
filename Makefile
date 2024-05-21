@@ -24,6 +24,7 @@ CFLAGS += -Wno-unused-parameter
 
 TARGET_LIBS += zepto/zepto.a
 TARGET_LIBS += zepto/zepto.so
+TARGET_BINS += zepto-dlopen/zepto-dlopen
 TARGET_BINS += demo/demo
 
 TARGETS = ${TARGET_BINS} ${TARGET_LIBS}
@@ -60,3 +61,9 @@ DEMO_OBJS := ${DEMO_SRCS:c=o}
 
 demo/demo: ${DEMO_OBJS} zepto/zepto.a
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
+ZEPTO_DLOPEN_SRCS += $(wildcard zepto-dlopen/*.c)
+ZEPTO_DLOPEN_OBJS := ${ZEPTO_DLOPEN_SRCS:c=o}
+
+zepto-dlopen/zepto-dlopen: ${ZEPTO_DLOPEN_OBJS} zepto/zepto.a
+	$(CC) -o $@ $^ -Wl,--export-dynamic -ldl $(CFLAGS) $(LDFLAGS)
