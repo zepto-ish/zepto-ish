@@ -11,6 +11,7 @@
 
 #include <kernel.h>
 
+// NOTE: This task, except for vconsole_stdoutf and PANIC, is portable.
 void task_1(VP_INT exinf) {
 	/* Body of the task */
 	vconsole_stdoutf("Hello, World!\n");

@@ -11,6 +11,7 @@
 
 #include <kernel.h>
 
+// NOTE: This task is portable.
 void task_2(VP_INT exinf) {
 	static INT s_i = 0;
 	INT i = 0;
