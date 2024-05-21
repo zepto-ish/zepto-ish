@@ -33,12 +33,16 @@ clean:
 "$(PREFIX)/bin":
 	mkdir -vp "$@"
 
+"$(PREFIX)/lib":
+	mkdir -vp "$@"
+
 ZEPTO_SRCS += $(wildcard zepto/*.c)
 
 ZEPTO_OBJS := ${ZEPTO_SRCS:c=o}
 
-install: main "$(PREFIX)/bin"
-	cp -vt "$(PREFIX)/bin" main
+install: "$(PREFIX)/bin" "$(PREFIX)/lib" demo/demo zepto/zepto.a
+	cp -vt "$(PREFIX)/bin" demo/demo
+	cp -vt "$(PREFIX)/lib" zepto/zepto.a
 
 # zepto.so: ${ZEPTO_OBJS}
 # 	$(CC) -shared -o $@ $^ $(CFLAGS) $(LDFLAGS)
