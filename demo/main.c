@@ -32,6 +32,8 @@
 
 DECLARE_TASK(1);
 DECLARE_TASK(2);
+DECLARE_TASK(3);
+
 void usr1_handler() {
 	DBG("SIGUSR1 handler...");
 	iact_tsk(1);
@@ -58,6 +60,7 @@ ER static_setup() {
 
 	INIT_TASK(1, NULL);
 	INIT_TASK(2, NULL);
+	INIT_TASK(3, TA_ACT);
 
 	DBG("... defining USR1 handler");
 	usr1_handler_info.inthdr = usr1_handler;
