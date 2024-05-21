@@ -110,7 +110,7 @@ ER def_inh (INHNO inhno, T_DINH *pk_dinh);
  **********************/
 
 #define TKERNEL_MAKER 0x0008 // Individuals (or personal businsses)
-#define TKERNEL_SPVER 0x5_4_02 // µITRON 4.02
+#define TKERNEL_SPVER 0x5_4.03 // µITRON 4.03
 /**
  * `prid` is the number for identifying the kernel.
  * The kernel maker can assign values to prid.

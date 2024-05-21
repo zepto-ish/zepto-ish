@@ -86,7 +86,7 @@ static void z_init_task(Z_T_TASK *task) {
 /**
  * Create Task
  *
- * (See the µITRON 4.02 specification)
+ * (See the µITRON 4.03 specification)
  */
 ER cre_tsk(ID tskid, T_CTSK *pk_ctsk) {
 	TRACE("New task:");
@@ -136,7 +136,7 @@ ER cre_tsk(ID tskid, T_CTSK *pk_ctsk) {
 /**
  * Activate Task
  *
- * (See the µITRON 4.02 specification)
+ * (See the µITRON 4.03 specification)
  */
 ER act_tsk(ID tskid) {
 	TRACE("Activating task:");
@@ -157,7 +157,7 @@ ER act_tsk(ID tskid) {
 /**
  * Activate Task
  *
- * (See the µITRON 4.02 specification)
+ * (See the µITRON 4.03 specification)
  */
 ER iact_tsk(ID tskid) {
 	return act_tsk(tskid);
@@ -166,7 +166,7 @@ ER iact_tsk(ID tskid) {
 /**
  * Terminate Invoking Task
  *
- * (See the µITRON 4.02 specification)
+ * (See the µITRON 4.03 specification)
  */
 void ext_tsk() {
 	TRACE("Exiting task #%d", z_current_task->id);
@@ -181,7 +181,7 @@ void ext_tsk() {
 /**
  * Put Task to Sleep
  *
- * (See the µITRON 4.02 specification)
+ * (See the µITRON 4.03 specification)
  */
 ER slp_tsk() {
 	TRACE("Putting task #%d to sleep", z_current_task->id);
@@ -199,7 +199,7 @@ ER slp_tsk() {
 /**
  * Wake up Task
  *
- * (See the µITRON 4.02 specification)
+ * (See the µITRON 4.03 specification)
  */
 ER wup_tsk(ID tskid) {
 	if (tskid == 0) {
@@ -221,7 +221,7 @@ ER wup_tsk(ID tskid) {
 /**
  * Wake up Task
  *
- * (See the µITRON 4.02 specification)
+ * (See the µITRON 4.03 specification)
  */
 ER iwup_tsk(ID tskid) {
 	if (tskid == 0) {
