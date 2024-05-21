@@ -22,11 +22,11 @@ CFLAGS += -Wno-unused-parameter
 
 .PHONY: clean all
 
-all: main
+all: zepto/zepto.a
 
 clean:
 	@rm -vf ${ZEPTO_OBJS}
-	@rm -vf zepto.so zepto.a
+	@rm -vf zepto/zepto.so zepto/zepto.a
 	@rm -vf main
 
 "$(PREFIX)/bin":
@@ -42,7 +42,7 @@ install: main "$(PREFIX)/bin"
 # zepto.so: ${ZEPTO_OBJS}
 # 	$(CC) -shared -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
-zepto.a: ${ZEPTO_OBJS}
+zepto/zepto.a: ${ZEPTO_OBJS}
 	$(AR) vrcs $@ $^
 
 main: src/main.o zepto.a

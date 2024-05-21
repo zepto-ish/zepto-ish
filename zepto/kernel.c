@@ -333,3 +333,21 @@ void zepto_run() {
 
 	PANIC("Exited zepto_run() loop!!", E_SYS);
 }
+
+extern ER static_setup();
+
+int main(int argc, char** argv) {
+	// Do some initial housekeeping
+	zepto_init();
+
+	// TODO: figure out a more re-usable scheme
+	static_setup();
+
+	// Launch the main loop
+	zepto_run();
+
+	// This should not happen
+	PANIC("End of main() reached!", E_SYS);
+
+	return 0;
+}
