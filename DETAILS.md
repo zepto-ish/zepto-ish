@@ -18,7 +18,9 @@ Search for `µITRON 4.0 Specification` to find the link.
 >                    o- Full set
 >        Level E -o  |
 >                 |  o- Standard Profile
->        Level S -o  |
+>                 |  |
+>        Level S -o  o- Basic PRofile
+>                 |  |
 >                 |  o- Automotive Control Profile
 >        Level R -o  |
 >                    o- Minimum set
