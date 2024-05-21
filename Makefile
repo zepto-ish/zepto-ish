@@ -25,14 +25,25 @@ CFLAGS += -Wno-unused-parameter
 all: main
 
 clean:
-	@rm -vf *.o */*.o
+	@rm -vf ${ZEPTO_OBJS}
+	@rm -vf zepto.so zepto.a
 	@rm -vf main
 
 "$(PREFIX)/bin":
 	mkdir -vp "$@"
 
+ZEPTO_SRCS += $(wildcard zepto/*.c)
+
+ZEPTO_OBJS := ${ZEPTO_SRCS:c=o}
+
 install: main "$(PREFIX)/bin"
 	cp -vt "$(PREFIX)/bin" main
 
-main: src/main.o src/kernel.o
+# zepto.so: ${ZEPTO_OBJS}
+# 	$(CC) -shared -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
+zepto.a: ${ZEPTO_OBJS}
+	$(AR) vrcs $@ $^
+
+main: src/main.o zepto.a
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)

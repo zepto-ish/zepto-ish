@@ -1,3 +1,5 @@
+*.so
+*.a
 *.o
 main
 result
