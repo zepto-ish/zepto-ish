@@ -16,11 +16,16 @@
 
 A minimum-functionality satisfactory implementation of *µITRON4.0* (according to *5.1.2 Minimum Required Functionalities*).
 
-It implements only the minimum required functionality.
+It implements this minimum required functionality:
 
  - Task creation/activation/termination (states: RUNNING, READY, DORMANT)
  - Task scheduling (conforming, with acceptable limitations)
- - Interrupt handling (TBD)
+ - Interrupt handling
+
+And additionally:
+
+ - Task sleep/wake-up
+ - A couple [vendor-specific service calls](SERVICES.md) for convenience
 
 All of this implemented as userspace Linux application.
 
