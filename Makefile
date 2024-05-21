@@ -27,13 +27,21 @@ TARGET_LIBS += zepto/zepto.so
 TARGET_BINS += zepto-dlopen/zepto-dlopen
 TARGET_BINS += demo/demo
 
-TARGETS = ${TARGET_BINS} ${TARGET_LIBS}
+# Declare `all` as the default target
+# Otherwise includes will force a new default target
+all:
 
+include ./kerexts/Makefile
+
+TARGETS += $(TARGET_BINS) $(TARGET_LIBS)
+
+# Finally add its targets
 all: $(TARGETS)
 
-clean:
+clean::
 	@rm -vf ${ZEPTO_OBJS}
 	@rm -vf ${DEMO_OBJS}
+	@rm -vf ${ZEPTO_DLOPEN_OBJS}
 	@rm -vf ${TARGETS}
 
 "$(PREFIX)/bin":
@@ -43,7 +51,7 @@ clean:
 	mkdir -vp "$@"
 
 
-install: "$(PREFIX)/bin" "$(PREFIX)/lib" ${TARGET_BINS} ${TARGET_LIBS}
+install:: "$(PREFIX)/bin" "$(PREFIX)/lib" ${TARGET_BINS} ${TARGET_LIBS}
 	cp -vt "$(PREFIX)/bin" ${TARGET_BINS}
 	cp -vt "$(PREFIX)/lib" ${TARGET_LIBS}
 
