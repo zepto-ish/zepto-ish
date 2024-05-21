@@ -26,6 +26,7 @@ all: zepto/zepto.a demo/demo
 
 clean:
 	@rm -vf ${ZEPTO_OBJS}
+	@rm -vf ${DEMO_OBJS}
 	@rm -vf zepto/zepto.so zepto/zepto.a
 	@rm -vf main
 	@rm -vf demo/demo

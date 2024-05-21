@@ -11,33 +11,12 @@
 
 /**
  * Entrypoint of the simulated environment.
- * Does not use µTRON types.
  */
 
 #include <kernel.h>
 
-void task(VP_INT exinf) {
-	/* Body of the task */
-	vconsole_stdoutf("Hello, World!\n");
-	ext_tsk();
-	PANIC("End of sample task reached...", E_SYS);
-}
-
-void other_task(VP_INT exinf) {
-	static INT s_i = 0;
-	INT i = 0;
-	i++;
-	s_i++;
-	vconsole_stdoutf("Other task?\n");
-	DBG("This should stay at 1: %08d", i);
-	DBG("This should increment: %08d", s_i);
-	if (i != 1) {
-		PANIC("Stack-allocated variables are not working properly...", E_SYS);
-	}
-	if (s_i <= 10) {
-		act_tsk(1);
-	}
-}
+extern void task_1(VP_INT exinf);
+extern void task_2(VP_INT exinf);
 
 void usr1_handler() {
 	DBG("SIGUSR1 handler...");
@@ -54,8 +33,8 @@ void int_handler() {
 	iact_tsk(1);
 }
 
-static T_CTSK task_info = {0};
-static T_CTSK other_info = {0};
+static T_CTSK task_1_info;
+static T_CTSK task_2_info;
 static T_DINH usr1_handler_info;
 static T_DINH usr2_handler_info;
 static T_DINH int_handler_info;
@@ -63,27 +42,25 @@ static T_DINH int_handler_info;
 ER static_setup() {
 	ER_ID ret;
 
-	// This would be in the application-specific initialization normally...
-	// For now, implemented as `main`...
 	DBG("Starting up...");
 
-	DBG("... creating task");
-	task_info.task = (FP)task;
-	task_info.exinf = NULL;
-	task_info.tskatr |= TA_ACT; // Start active
+	DBG("... creating task_1");
+	task_1_info.task = (FP)task_1;
+	task_1_info.exinf = NULL;
+	task_1_info.tskatr |= TA_ACT; // Start active
 
-	ret = cre_tsk(1, &task_info);
+	ret = cre_tsk(1, &task_1_info);
 	if (ret < 0) {
 		PANIC("Could not create task...", ret);
 	}
 
-	DBG("... creating other_task");
-	other_info.task = (FP)other_task;
-	other_info.exinf = NULL;
+	DBG("... creating task_2");
+	task_2_info.task = (FP)task_2;
+	task_2_info.exinf = NULL;
 
-	ret = cre_tsk(2, &other_info);
+	ret = cre_tsk(2, &task_2_info);
 	if (ret < 0) {
-		PANIC("Could not create other_task...", ret);
+		PANIC("Could not create task...", ret);
 	}
 
 	DBG("... defining USR1 handler");
