@@ -15,9 +15,23 @@
 
 #include <kernel.h>
 
-extern void task_1(VP_INT exinf);
-extern void task_2(VP_INT exinf);
+#define DECLARE_TASK(id) extern void task_##id(VP_INT exinf)
+#define INIT_TASK(id, flags) \
+{ \
+	static T_CTSK task_##id##_info; \
+	DBG("... creating task_%d (flags: %d)", id, flags); \
+	task_##id##_info.task = (FP)task_##id; \
+	task_##id##_info.exinf = NULL; \
+	task_##id##_info.tskatr |= flags; \
+	ret = cre_tsk(id, &task_##id##_info); \
+	if (ret < 0) { \
+		PANIC("Could not create task...", ret); \
+	} \
+} \
+;
 
+DECLARE_TASK(1);
+DECLARE_TASK(2);
 void usr1_handler() {
 	DBG("SIGUSR1 handler...");
 	iact_tsk(1);
@@ -33,8 +47,6 @@ void int_handler() {
 	iact_tsk(1);
 }
 
-static T_CTSK task_1_info;
-static T_CTSK task_2_info;
 static T_DINH usr1_handler_info;
 static T_DINH usr2_handler_info;
 static T_DINH int_handler_info;
@@ -44,24 +56,8 @@ ER static_setup() {
 
 	DBG("Starting up...");
 
-	DBG("... creating task_1");
-	task_1_info.task = (FP)task_1;
-	task_1_info.exinf = NULL;
-	task_1_info.tskatr |= TA_ACT; // Start active
-
-	ret = cre_tsk(1, &task_1_info);
-	if (ret < 0) {
-		PANIC("Could not create task...", ret);
-	}
-
-	DBG("... creating task_2");
-	task_2_info.task = (FP)task_2;
-	task_2_info.exinf = NULL;
-
-	ret = cre_tsk(2, &task_2_info);
-	if (ret < 0) {
-		PANIC("Could not create task...", ret);
-	}
+	INIT_TASK(1, NULL);
+	INIT_TASK(2, NULL);
 
 	DBG("... defining USR1 handler");
 	usr1_handler_info.inthdr = usr1_handler;
