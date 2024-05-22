@@ -10,6 +10,7 @@
 
 TARGET_KEREXTS += kerexts/simplest.so
 TARGET_KEREXTS += kerexts/looping.so
+TARGET_KEREXTS += kerexts/console.so
 
 # Add all TARGET_KEREXTS to the TARGETS.
 TARGETS += ${TARGET_KEREXTS}
@@ -29,3 +30,6 @@ kerexts/simplest.so: kerexts/simplest.o
 
 kerexts/looping.so: kerexts/looping.o
 	$(CC) -shared -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
+kerexts/console.so: kerexts/console.o
+	$(CC) -shared -o $@ $^ -llinenoise $(CFLAGS) $(LDFLAGS)
