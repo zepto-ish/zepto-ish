@@ -16,6 +16,7 @@
 #include <kernel.h>
 
 // System headers used internally by the kernel
+#include <setjmp.h>
 #include <ucontext.h>
 #include <unistd.h>
 
@@ -232,6 +233,7 @@ ER iwup_tsk(ID tskid) {
 }
 
 
+jmp_buf z_return_buf;
 void _kernel_initialize_tasks() {
 	TRACE("Setting-up context for `ext_tsk`");
 	getcontext(&z_ext_tsk_context);
@@ -241,13 +243,11 @@ void _kernel_initialize_tasks() {
 	makecontext(&z_ext_tsk_context, ext_tsk, 0);
 }
 void _kernel_schedule_tasks() {
-#if 0
-	for(int XXX = 0; XXX < 5; XXX++) {
-#else
 	for(;;) {
-#endif
-	TRACE("\n");
-	TRACE("== Top of the loop ==");
+		// When jumping back in here, reset signals.
+		sigsetjmp(z_return_buf, TRUE);
+		TRACE("\n");
+		TRACE("== Top of the loop ==");
 		for (int i = 0; i < Z_MAX_TSKID; i++) {
 			z_current_task = &z_tasks[i];
 			STAT state = z_current_task->state;
@@ -263,15 +263,29 @@ void _kernel_schedule_tasks() {
 						z_current_task->state = TTS_RDY;
 					}
 					z_current_task = NULL;
-
-					// Start from the top
-					// A task with higher precedence (smaller ID# [sic]) may
-					// be ready to run now.
-					continue;
 				}
 			}
 		}
 		TRACE("💤");
 		pause();
 	}
+}
+
+void _kernel_tasks_reset() {
+	// A task is runnning?
+	if (z_current_task->state == TTS_RUN) {
+		// Set it back to TTS_RDY
+		z_current_task->state = TTS_RDY;
+		// Save where we are
+		getcontext(&z_current_task->task_context);
+		// The loop restarted the task?
+		if (z_current_task->state == TTS_RUN) {
+			// Go back in action
+			return;
+		}
+		// Otherwise...
+	}
+
+	// go back to the top of the scheduling loop!
+	siglongjmp(z_return_buf, 1);
 }

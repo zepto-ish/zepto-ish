@@ -18,6 +18,8 @@
 // System headers used internally by the kernel
 #include <signal.h>
 
+extern void _kernel_tasks_reset();
+
 static T_DINH* handlers[Z_INH_MAX];
 
 static void z_inh_signal_handler(int signal) {
@@ -34,6 +36,8 @@ static void z_inh_signal_handler(int signal) {
 	if (handlers[intno]) {
 		handlers[intno]->inthdr();
 	}
+	// Restarts processing tasks, this will likely have unclogged tasks.
+	_kernel_tasks_reset();
 }
 
 ER def_inh (INHNO inhno, T_DINH *pk_dinh) {
