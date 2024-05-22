@@ -16,6 +16,7 @@ CFLAGS += -Wswitch-enum
 CFLAGS += -Wenum-compare
 CFLAGS += -Wenum-conversion
 CFLAGS += -Iinclude
+CFLAGS += -fPIC
 
 # Annoying :(
 CFLAGS += -Wno-unused-parameter
