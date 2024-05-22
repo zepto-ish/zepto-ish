@@ -9,6 +9,7 @@
 #   ╚════════════════════════════════════════════════════╝
 
 TARGET_KEREXTS += kerexts/simplest.so
+TARGET_KEREXTS += kerexts/looping.so
 
 # Add all TARGET_KEREXTS to the TARGETS.
 TARGETS += ${TARGET_KEREXTS}
@@ -26,3 +27,5 @@ clean::
 kerexts/simplest.so: kerexts/simplest.o
 	$(CC) -shared -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
+kerexts/looping.so: kerexts/looping.o
+	$(CC) -shared -o $@ $^ $(CFLAGS) $(LDFLAGS)
