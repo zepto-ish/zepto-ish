@@ -125,6 +125,7 @@ ER def_inh (INHNO inhno, T_DINH *pk_dinh);
 
 void vconsole_stdoutf(char* fmt, ...);
 void vconsole_stderrf(char* fmt, ...);
+ER vconsole_reghooks(FP before, FP after);
 void vprocess_exit(UB code);
 
 

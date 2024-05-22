@@ -29,6 +29,20 @@ void vconsole_stderrf(char* fmt, ...);
 
 Prints the given `fmt` string to `stderr`, following `printf` format conventions.
 
+### `reghooks`
+
+```
+ER vconsole_reghooks(FP before, FP after);
+```
+
+Registers functions to be called before and after `vconsole` output.
+
+This is intended to be used to do "housekeeping" before showing things on the terminal.
+For example, removing a prompt in `before` and putting back the prompt in `after`.
+
+ - Returns `E_OK` when functions have been registered correctly.
+ - Returns `E_OBJ` when called after functions have been registered.
+
 
 `process`
 ---------
