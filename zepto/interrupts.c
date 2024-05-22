@@ -29,6 +29,7 @@ static void z_inh_signal_handler(int signal) {
 		case SIGTERM: intno = INTNO_TERM; break;
 		case SIGALRM: intno = INTNO_ALRM; break;
 		case  SIGINT: intno =  INTNO_INT; break;
+		case   SIGIO: intno =   INTNO_IO; break;
 	}
 	if (handlers[intno]) {
 		handlers[intno]->inthdr();
@@ -57,6 +58,7 @@ ER def_inh (INHNO inhno, T_DINH *pk_dinh) {
 			case INTNO_TERM: num = SIGTERM; break;
 			case INTNO_ALRM: num = SIGALRM; break;
 			case  INTNO_INT: num =  SIGINT; break;
+			case   INTNO_IO: num =   SIGIO; break;
 		}
 
 		TRACE("Installing signal handler...");

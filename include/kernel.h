@@ -79,6 +79,7 @@ enum INTNO_LIST {
 	INTNO_ALRM = 3,
 	INTNO_INT  = 4,
 	INTNO_TERM = 5,
+	INTNO_IO   = 6,
 };
 
 /**
