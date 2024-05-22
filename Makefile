@@ -73,5 +73,5 @@ demo/demo: ${DEMO_OBJS} zepto/zepto.a
 ZEPTO_DLOPEN_SRCS += $(wildcard zepto-dlopen/*.c)
 ZEPTO_DLOPEN_OBJS := ${ZEPTO_DLOPEN_SRCS:c=o}
 
-zepto-dlopen/zepto-dlopen: ${ZEPTO_DLOPEN_OBJS} zepto/zepto.a
-	$(CC) -o $@ $^ -Wl,--export-dynamic -ldl $(CFLAGS) $(LDFLAGS)
+zepto-dlopen/zepto-dlopen: ${ZEPTO_DLOPEN_OBJS} zepto/zepto.a#${ZEPTO_OBJS}
+	$(CC) -Wl,--export-dynamic -o $@ -Wl,--whole-archive $^ -Wl,--no-whole-archive -ldl $(CFLAGS) $(LDFLAGS)
