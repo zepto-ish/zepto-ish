@@ -28,7 +28,3 @@ Other interrupts
 ----------------
 
 (TBD)
-
-To be considered:
-
- - `getc` for trivial console input?
