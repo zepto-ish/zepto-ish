@@ -248,7 +248,6 @@ void _kernel_schedule_tasks() {
 #endif
 	TRACE("\n");
 	TRACE("== Top of the loop ==");
-		BOOL ran_one = FALSE;
 		for (int i = 0; i < Z_MAX_TSKID; i++) {
 			z_current_task = &z_tasks[i];
 			STAT state = z_current_task->state;
@@ -264,13 +263,15 @@ void _kernel_schedule_tasks() {
 						z_current_task->state = TTS_RDY;
 					}
 					z_current_task = NULL;
-					ran_one = TRUE;
+
+					// Start from the top
+					// A task with higher precedence (smaller ID# [sic]) may
+					// be ready to run now.
+					continue;
 				}
 			}
 		}
-		if (!ran_one) {
-			TRACE("💤");
-			pause();
-		}
+		TRACE("💤");
+		pause();
 	}
 }
