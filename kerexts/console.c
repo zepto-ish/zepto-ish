@@ -169,8 +169,6 @@ static void cmd_kerext_load() {
 	}
 
 	vkerext_load(token);
-
-	vconsole_stderrf("TODO: kerext load '%s' here...\n", token);
 }
 
 static void cmd_main_kerext() {
